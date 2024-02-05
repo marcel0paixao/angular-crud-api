@@ -1,3 +1,4 @@
+import { Unique } from 'src/auth/validators/uniqueconstraint.validator';
 import { User } from '../entities/user.entity';
 import {
   IsEmail,
@@ -8,14 +9,17 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto extends User {
-  @IsEmail()
+  @Unique('user', 'email', {
+    message: 'e-mail must be unique',
+  })
+  @IsEmail({})
   email: string;
 
   @IsString()
   @MinLength(7)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'password too weak',
+    message: 'Password too weak',
   })
   password: string;
 

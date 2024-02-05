@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { UniqueConstraint } from './auth/validators/uniqueconstraint.validator';
 
 @Module({
   imports: [CategoriesModule, PrismaModule, ProductModule, UserModule, AuthModule],
@@ -17,7 +18,8 @@ import { APP_GUARD } from '@nestjs/core';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
-    }
+    },
+    UniqueConstraint
   ],
 })
 export class AppModule {}

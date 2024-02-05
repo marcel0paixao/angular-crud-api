@@ -9,7 +9,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @IsPublic()
-    @Post('login') 
+    @Post('user/login') 
     @HttpCode(HttpStatus.OK)
     @UseGuards(LocalAuthGuard)
     login(@Request() req: AuthRequest) {
