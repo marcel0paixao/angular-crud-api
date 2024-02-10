@@ -4,7 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class ProductService {
+export class ProductsService {
 
   constructor(private prisma: PrismaService) {}
 
