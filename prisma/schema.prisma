@@ -14,6 +14,8 @@ model Category {
   id Int @id @default(autoincrement())
   name String
   Product Product[]
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -22,6 +24,8 @@ model Product {
   id Int @id @default(autoincrement())
   name String
   price Float
+  user User @relation(fields: [user_id], references: [id])
+  user_id Int
   category Category @relation(fields: [category_id], references: [id])
   category_id Int
   created_at DateTime @default(now())
@@ -35,4 +39,7 @@ model User {
   password String
 
   name String
+
+  Product Product[]
+  Category Category[]
 }

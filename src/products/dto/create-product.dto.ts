@@ -18,4 +18,9 @@ export class CreateProductDto {
     @Min(1)
     @IsNotEmpty()
     category_id: number
+
+    @IsInt()
+    @Min(1)
+    @IsNotEmpty()
+    user_id: number
 }

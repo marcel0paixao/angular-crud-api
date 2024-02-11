@@ -10,7 +10,7 @@ import {
 
 export class CreateUserDto extends User {
   @Unique('user', 'email', {
-    message: 'e-mail must be unique',
+    message: 'field must be unique',
   })
   @IsEmail({})
   email: string;

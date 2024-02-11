@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@ne
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { User } from '@prisma/client';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Controller('categories')
 export class CategoriesController {
@@ -13,23 +15,23 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  findAll(@CurrentUser() user: User) {
+    return this.categoriesService.findAll(user);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.categoriesService.findOne(+id);
+  findOne(@Param('id') id: number, @CurrentUser() user: User) {
+    return this.categoriesService.findOne(+id, user);
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+  update(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto, @CurrentUser() user: User) {
+    return this.categoriesService.update(+id, updateCategoryDto, user);
   }
 
   @HttpCode(204)
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.categoriesService.remove(+id);
+  remove(@Param('id') id: number, @CurrentUser() user: User) {
+    return this.categoriesService.remove(+id, user);
   }
 }

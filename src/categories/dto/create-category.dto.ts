@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
+import { IsInt, IsNotEmpty, IsString, MaxLength, Min, MinLength } from "class-validator";
 
 export class CreateCategoryDto {
     @MaxLength(255)
@@ -6,4 +6,9 @@ export class CreateCategoryDto {
     @IsNotEmpty()
     @MinLength(5)
     name: string;
+
+    @IsInt()
+    @Min(1)
+    @IsNotEmpty()
+    user_id: number
 }
