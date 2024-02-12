@@ -7,20 +7,26 @@ import {
   registerDecorator,
   ValidationArguments,
 } from 'class-validator';
+import { CreateProductDto } from 'src/products/dto/create-product.dto';
 
 const prisma = new PrismaClient();
 
 @ValidatorConstraint({ async: true })
 export class UniqueConstraint implements ValidatorConstraintInterface {
   async validate(value: any, args: ValidationArguments) {
-    const [model, field] = args.constraints;
+    const [model, field, perUser] = args.constraints;
+    const object = args.object as CreateProductDto;
+    const user_id = object.user_id;
 
     //@ts-ignore
     //necessary due the prisma typing compilation error
-    const existingRecord = await prisma[model].findUnique({
-      where: { [field]: value },
+    const existingRecord = await prisma[model].findFirst({
+      where: {
+        [field]: value,
+        ...(perUser && { user_id }),
+      },
     });
-    
+
     return !existingRecord;
   }
 
@@ -32,6 +38,7 @@ export class UniqueConstraint implements ValidatorConstraintInterface {
 export function Unique(
   model: string,
   field: string,
+  perUser: boolean,
   validationOptions?: ValidationOptions,
 ) {
   return function (object: Object, propertyName: string) {
@@ -39,7 +46,7 @@ export function Unique(
       name: 'Unique',
       target: object.constructor,
       propertyName: propertyName,
-      constraints: [model, field],
+      constraints: [model, field, perUser],
       options: validationOptions,
       validator: UniqueConstraint,
     });

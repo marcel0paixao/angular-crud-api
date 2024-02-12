@@ -10,7 +10,8 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
+  create(@Body() createProductDto: CreateProductDto, @CurrentUser() user: User) {
+    createProductDto.user_id = user.id;
     return this.productsService.create(createProductDto);
   }
 

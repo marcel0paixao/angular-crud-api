@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength, Min, IsInt } from "class-validator"
+import { Unique } from "src/auth/validators/uniqueconstraint.validator"
 
 export class CreateProductDto {
     id: number
@@ -6,6 +7,9 @@ export class CreateProductDto {
     @MaxLength(255)
     @IsString()
     @IsNotEmpty()
+    @Unique('product', 'name', true, {
+        message: 'field must be unique'
+    })
     name: string
 
     @IsNumber()
