@@ -30,7 +30,7 @@
 		"vscode": {
 			"extensions": [
 				"prisma.prisma",
-				"rangav.vscode-thunder-client"
+				"postman.postman-for-vscode"
 			]
 		}
 	}

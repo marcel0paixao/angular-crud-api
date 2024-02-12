@@ -9,8 +9,8 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto extends User {
-  @Unique('user', 'email', {
-    message: 'e-mail must be unique',
+  @Unique('user', 'email', false, {
+    message: 'field must be unique',
   })
   @IsEmail({})
   email: string;
