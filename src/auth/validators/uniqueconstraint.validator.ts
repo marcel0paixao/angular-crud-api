@@ -7,6 +7,7 @@ import {
   registerDecorator,
   ValidationArguments,
 } from 'class-validator';
+import { CreateCategoryDto } from 'src/categories/dto/create-category.dto';
 import { CreateProductDto } from 'src/products/dto/create-product.dto';
 
 const prisma = new PrismaClient();
@@ -15,7 +16,7 @@ const prisma = new PrismaClient();
 export class UniqueConstraint implements ValidatorConstraintInterface {
   async validate(value: any, args: ValidationArguments) {
     const [model, field, perUser] = args.constraints;
-    const object = args.object as CreateProductDto;
+    const object = args.object as CreateProductDto | CreateCategoryDto;
     const user_id = object.user_id;
 
     //@ts-ignore
@@ -26,6 +27,8 @@ export class UniqueConstraint implements ValidatorConstraintInterface {
         ...(perUser && { user_id }),
       },
     });
+    
+    if (perUser && existingRecord && object.id && existingRecord.id == object.id) return true;
 
     return !existingRecord;
   }

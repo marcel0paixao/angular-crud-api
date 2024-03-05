@@ -10,6 +10,8 @@ export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
   create(createCategoryDto: CreateCategoryDto) {
+    createCategoryDto.name = createCategoryDto.name.trim();
+
     return this.prisma.category.create({
       data: createCategoryDto
     })
@@ -36,6 +38,8 @@ export class CategoriesService {
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto, user: User) {
+    updateCategoryDto.name = updateCategoryDto.name.trim();
+
     return this.prisma.category.update({
       where: {
         id,

@@ -11,6 +11,8 @@ export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
   create(CreateProductDto: CreateProductDto) {
+    CreateProductDto.name = CreateProductDto.name.trim();
+
     return this.prisma.product.create({
       data: CreateProductDto
     })
@@ -37,6 +39,8 @@ export class ProductsService {
   }
 
   update(id: number, UpdateProductDto: UpdateProductDto, user: User) {
+    UpdateProductDto.name = UpdateProductDto.name.trim();
+    
     return this.prisma.product.update({
       where: {
         id,

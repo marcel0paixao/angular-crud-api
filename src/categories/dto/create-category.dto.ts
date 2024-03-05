@@ -2,6 +2,8 @@ import { IsInt, IsNotEmpty, IsString, MaxLength, Min, MinLength } from "class-va
 import { Unique } from "src/auth/validators/uniqueconstraint.validator";
 
 export class CreateCategoryDto {
+    id: number
+
     @MaxLength(255)
     @IsString()
     @IsNotEmpty()

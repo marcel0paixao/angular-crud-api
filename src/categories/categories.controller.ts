@@ -25,7 +25,11 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateCategoryDto: UpdateCategoryDto, @CurrentUser() user: User) {
+  update(
+    @Param('id') id: number,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+    @CurrentUser() user: User,
+  ) {
     return this.categoriesService.update(+id, updateCategoryDto, user);
   }
 
