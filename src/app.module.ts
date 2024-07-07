@@ -19,7 +19,7 @@ import { UniqueConstraint } from './auth/validators/uniqueconstraint.validator';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    UniqueConstraint
+    UniqueConstraint,
   ],
 })
 export class AppModule {}
