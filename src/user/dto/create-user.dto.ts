@@ -1,4 +1,4 @@
-import { Unique } from 'src/auth/validators/uniqueconstraint.validator';
+import { Unique } from "../../auth/validators/uniqueconstraint.validator";
 import { User } from '../entities/user.entity';
 import {
   IsEmail,

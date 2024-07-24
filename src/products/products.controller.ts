@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { User } from '@prisma/client';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Controller('products')
 export class ProductsController {
@@ -30,6 +30,7 @@ export class ProductsController {
     return this.productsService.update(+id, updateProductDto, user);
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: number, @CurrentUser() user: User) {
     return this.productsService.remove(+id, user);

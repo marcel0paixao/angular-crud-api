@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength, Min, IsInt } from "class-validator"
-import { Unique } from "src/auth/validators/uniqueconstraint.validator"
+import { Unique } from "../../auth/validators/uniqueconstraint.validator";
 
 export class CreateProductDto {
     id: number
